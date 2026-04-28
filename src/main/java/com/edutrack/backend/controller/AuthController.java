@@ -1,8 +1,18 @@
 package com.edutrack.backend.controller;
 
+<<<<<<< HEAD
 import com.edutrack.backend.dto.auth.AuthResponse;
 import com.edutrack.backend.dto.auth.LoginRequest;
 import com.edutrack.backend.dto.auth.RegisterTeacherRequest;
+=======
+import com.edutrack.backend.dto.auth.ForgotPasswordRequest;
+import com.edutrack.backend.dto.auth.AuthResponse;
+import com.edutrack.backend.dto.auth.LoginRequest;
+import com.edutrack.backend.dto.auth.RegisterTeacherRequest;
+import com.edutrack.backend.dto.auth.ResetPasswordRequest;
+import com.edutrack.backend.dto.auth.VerifyOtpRequest;
+import com.edutrack.backend.dto.common.ApiResponse;
+>>>>>>> 845f1ab5fbe46a1169ff3b69b4f62391f3582b5d
 import com.edutrack.backend.service.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
@@ -29,4 +39,28 @@ public class AuthController {
     public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest request) {
         return ResponseEntity.ok(authService.login(request));
     }
+<<<<<<< HEAD
+=======
+
+    @PostMapping("/password/forgot")
+    @Operation(summary = "Send password reset OTP to registered email")
+    public ResponseEntity<ApiResponse> forgotPassword(@Valid @RequestBody ForgotPasswordRequest request) {
+        authService.sendPasswordResetOtp(request);
+        return ResponseEntity.ok(ApiResponse.builder().success(true).message("OTP sent if the email is registered").build());
+    }
+
+    @PostMapping("/password/verify-otp")
+    @Operation(summary = "Verify password reset OTP")
+    public ResponseEntity<ApiResponse> verifyOtp(@Valid @RequestBody VerifyOtpRequest request) {
+        authService.verifyPasswordResetOtp(request);
+        return ResponseEntity.ok(ApiResponse.builder().success(true).message("OTP verified").build());
+    }
+
+    @PostMapping("/password/reset")
+    @Operation(summary = "Reset password using verified OTP")
+    public ResponseEntity<ApiResponse> resetPassword(@Valid @RequestBody ResetPasswordRequest request) {
+        authService.resetPassword(request);
+        return ResponseEntity.ok(ApiResponse.builder().success(true).message("Password changed successfully").build());
+    }
+>>>>>>> 845f1ab5fbe46a1169ff3b69b4f62391f3582b5d
 }
