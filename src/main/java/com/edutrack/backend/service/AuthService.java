@@ -1,17 +1,11 @@
 package com.edutrack.backend.service;
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 074e2fe6c4cde57c8dcf763bc1e003686cb956d0
 import java.util.Map;
 
 import com.edutrack.backend.dto.auth.AuthResponse;
 import com.edutrack.backend.dto.auth.LoginRequest;
 import com.edutrack.backend.dto.auth.RegisterTeacherRequest;
-<<<<<<< HEAD
-=======
-=======
+
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.util.Map;
@@ -23,8 +17,7 @@ import com.edutrack.backend.dto.auth.LoginRequest;
 import com.edutrack.backend.dto.auth.RegisterTeacherRequest;
 import com.edutrack.backend.dto.auth.ResetPasswordRequest;
 import com.edutrack.backend.dto.auth.VerifyOtpRequest;
->>>>>>> 845f1ab5fbe46a1169ff3b69b4f62391f3582b5d
->>>>>>> 074e2fe6c4cde57c8dcf763bc1e003686cb956d0
+
 import com.edutrack.backend.entity.Role;
 import com.edutrack.backend.entity.Student;
 import com.edutrack.backend.entity.User;
@@ -42,16 +35,11 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AuthService {
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
+
     private static final int OTP_EXPIRY_MINUTES = 10;
     private static final SecureRandom SECURE_RANDOM = new SecureRandom();
     private final Map<String, PasswordResetOtp> passwordResetOtps = new ConcurrentHashMap<>();
 
->>>>>>> 845f1ab5fbe46a1169ff3b69b4f62391f3582b5d
->>>>>>> 074e2fe6c4cde57c8dcf763bc1e003686cb956d0
     private final UserRepository userRepository;
     private final StudentRepository studentRepository;
     private final PasswordEncoder passwordEncoder;
@@ -91,10 +79,7 @@ public class AuthService {
         return buildAuthResponse(user, student);
     }
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
+
     public void sendPasswordResetOtp(ForgotPasswordRequest request) {
         userRepository.findByEmail(request.getEmail()).ifPresent(user -> {
             String otp = String.format("%06d", SECURE_RANDOM.nextInt(1_000_000));
@@ -139,8 +124,6 @@ public class AuthService {
         return email.trim().toLowerCase();
     }
 
->>>>>>> 845f1ab5fbe46a1169ff3b69b4f62391f3582b5d
->>>>>>> 074e2fe6c4cde57c8dcf763bc1e003686cb956d0
     private AuthResponse buildAuthResponse(User user, Student student) {
         String token = jwtService.generateToken(user, Map.of("role", user.getRole().name()));
         return AuthResponse.builder()
@@ -152,13 +135,7 @@ public class AuthService {
                 .studentId(student != null ? student.getStudentId() : null)
                 .build();
     }
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
 
     private record PasswordResetOtp(String value, LocalDateTime expiresAt, boolean verified) {
     }
->>>>>>> 845f1ab5fbe46a1169ff3b69b4f62391f3582b5d
->>>>>>> 074e2fe6c4cde57c8dcf763bc1e003686cb956d0
 }
